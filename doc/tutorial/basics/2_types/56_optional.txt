@@ -33,3 +33,25 @@ b: #a & {
 b: {
     foo: 3
 }
+
+The definition of `b` above narrows the range possible settings for `#a`.
+
+However, it is also possible to make `#a` open for extension by adding `...`:
+
+-- structs.cue --
+#a: {
+    foo?: int
+    bar?: string
+    baz?: string
+    ...
+}
+b: #a & {
+    foo:  3
+    faa: "additional"
+}
+
+-- expect-stdout-cue --
+b: {
+    foo: 3
+    faa: "additional"
+}
